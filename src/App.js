@@ -39,6 +39,19 @@ function App() {
     },
   ];
 
+  const [bankDetails, setBankDetails] = useState(data);
+
+
+  const handleInputChange = (e) => {
+    let num = e.target.value;
+    if (num === '') return setToAccountNumber(num);
+    if (isNaN(num[num.length - 1])) return;
+    setToAccountNumber(num);
+
+    let filteredData = data.filter(data => data.accountNumber.toString().includes(num));
+    setBankDetails(filteredData);
+  };
+
   const handleItem = (data) => {
     console.log('clicked');
     setToAccountNumber(data.accountNumber);
@@ -56,7 +69,7 @@ function App() {
     <div className="app">
       <div className="app__header">
         <h1>COVID-19 Tracker</h1>
-        {/* <FormControl className="app__dropdown">
+        <FormControl className="app__dropdown">
           <Select
             variant="outlined"
           // value={country}
@@ -68,29 +81,7 @@ function App() {
             <MenuItem value="worldwide">Worldwide</MenuItem>
 
           </Select>
-        </FormControl> */}
-      </div>
-      <div className="select">
-        <div className="InputSelect">
-          <label htmlFor='accountNumber'>Account Number</label>
-          <input onFocus={handleInputFocus} onBlur={handleInputFocusOut} maxLength='10' type="text" placeholder="Select or Enter Account Number" value={toAccountNumber} list='accountNumber' onChange={(e) => setToAccountNumber(e.target.value)} />
-          <svg style={{ transform: dropdownVisible ? 'rotate(180deg)' : '' }} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 8L10 14L4 8" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-
-          <div className='beneficiary_dropdown' style={{ display: dropdownVisible ? 'block' : '' }}>
-            {
-              data.map(data => (
-                <div className="item" onClick={() => handleItem(data)}>
-                  <div className="name">{data.name}</div>
-                  <div className='bank-details'>
-                    {data.bank}: {data.accountNumber}
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-        </div>
+        </FormControl>
       </div>
     </div>
   );
