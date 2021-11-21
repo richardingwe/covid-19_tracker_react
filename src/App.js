@@ -1,5 +1,4 @@
 import { FormControl, MenuItem, Select } from '@material-ui/core';
-import { useState } from 'react';
 import './App.scss';
 
 function App() {
